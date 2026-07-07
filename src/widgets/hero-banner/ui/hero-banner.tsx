@@ -1,29 +1,10 @@
-import { dashboardRepository } from '@/shared/api/dashboard-service';
-import { useEffect, useState } from 'react';
 import type { DashboardSnapshot } from '@/entities/dashboard/model/types';
-import { logger } from '@/shared/lib/logger';
 
-export function HeroBanner() {
-  const [data, setData] = useState<DashboardSnapshot | null>(null);
+interface HeroBannerProps {
+  data?: DashboardSnapshot;
+}
 
-  useEffect(() => {
-    let isMounted = true;
-
-    dashboardRepository
-      .getSnapshot()
-      .then((snapshot) => {
-        if (isMounted) {
-          setData(snapshot);
-          logger.info('Dashboard snapshot loaded');
-        }
-      })
-      .catch((error) => logger.error('Failed to load dashboard snapshot', error));
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
+export function HeroBanner({ data }: HeroBannerProps) {
   if (!data) {
     return (
       <div className="hero-banner">

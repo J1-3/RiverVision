@@ -14,7 +14,8 @@
     "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "screenshot": "node scripts/capture-dashboard.mjs"
   },
   "dependencies": {
     "echarts": "^5.6.0",

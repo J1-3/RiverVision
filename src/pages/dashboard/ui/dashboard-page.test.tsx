@@ -14,6 +14,10 @@ vi.mock('@/widgets/distribution-chart/ui/distribution-chart', () => ({
   DistributionChart: () => <div data-testid="distribution-chart" />,
 }));
 
+vi.mock('@/widgets/radar-chart/ui/radar-chart', () => ({
+  RadarChart: () => <div data-testid="radar-chart" />,
+}));
+
 describe('DashboardPage', () => {
   it('renders major dashboard content', async () => {
     render(<DashboardPage />);
@@ -24,5 +28,6 @@ describe('DashboardPage', () => {
     expect(screen.getByTestId('hero-banner')).toBeInTheDocument();
     expect(screen.getByTestId('trend-chart')).toBeInTheDocument();
     expect(screen.getByTestId('distribution-chart')).toBeInTheDocument();
+    expect(screen.getByTestId('radar-chart')).toBeInTheDocument();
   });
 });

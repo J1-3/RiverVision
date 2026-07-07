@@ -40,4 +40,12 @@ export const dashboardMock: DashboardSnapshot = {
     { label: '链路在线率', value: 97 },
     { label: '可视化渗透', value: 88 },
   ],
+  radar: [
+    { name: '水质监测', value: 87 },
+    { name: '数据采集', value: 92 },
+    { name: '告警响应', value: 78 },
+    { name: '可视化', value: 85 },
+    { name: '教学互动', value: 70 },
+    { name: '系统稳定', value: 94 },
+  ],
 };

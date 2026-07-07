@@ -23,6 +23,11 @@ export interface AlertItem {
   severity: 'high' | 'medium' | 'low';
 }
 
+export interface RadarItem {
+  name: string;
+  value: number;
+}
+
 export interface DashboardSnapshot {
   title: string;
   subtitle: string;
@@ -33,4 +38,5 @@ export interface DashboardSnapshot {
   alerts: AlertItem[];
   liveStreams: Array<{ label: string; value: string; state: string }>;
   coverage: Array<{ label: string; value: number }>;
+  radar: RadarItem[];
 }

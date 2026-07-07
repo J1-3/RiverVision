@@ -10,13 +10,16 @@ interface DistributionChartProps {
 
 export function DistributionChart({ data }: DistributionChartProps) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const chartRef = useRef<echarts.ECharts | null>(null);
 
   useEffect(() => {
     if (!ref.current) {
       return;
     }
 
-    const chart = echarts.init(ref.current);
+    const element = ref.current;
+    const chart = echarts.init(element);
+    chartRef.current = chart;
     chart.setOption({
       tooltip: { trigger: 'item' },
       series: [
@@ -26,6 +29,32 @@ export function DistributionChart({ data }: DistributionChartProps) {
           center: ['50%', '54%'],
           itemStyle: { borderColor: 'rgba(7, 19, 31, 0.9)', borderWidth: 4 },
           label: { color: '#dff5ff' },
+          data: [],
+        },
+      ],
+    });
+
+    const observer = new ResizeObserver(() => {
+      chart?.resize();
+    });
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      chart.dispose();
+      chartRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!chartRef.current || !data) {
+      return;
+    }
+
+    chartRef.current.setOption({
+      series: [
+        {
           data: data.map((item, index) => ({
             name: item.label,
             value: item.value,
@@ -36,14 +65,6 @@ export function DistributionChart({ data }: DistributionChartProps) {
         },
       ],
     });
-
-    const observer = new ResizeObserver(() => chart.resize());
-    observer.observe(ref.current);
-
-    return () => {
-      observer.disconnect();
-      chart.dispose();
-    };
   }, [data]);
 
   return (

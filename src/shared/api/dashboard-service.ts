@@ -1,11 +1,11 @@
-import { dashboardMock } from '@/shared/mock/dashboard-data';
+import { getNextDashboardSnapshot } from '@/shared/mock/realtime-dashboard-simulator';
 import type { DashboardRepository } from './types';
 
 const useMock = true;
 
 class MockDashboardRepository implements DashboardRepository {
   async getSnapshot() {
-    return Promise.resolve(dashboardMock);
+    return getNextDashboardSnapshot();
   }
 }
 
